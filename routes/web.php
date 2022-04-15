@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PlofileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,9 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('Plofile.myPage');
 })->middleware(['auth'])->name('dashboard');
+
+Route::resource('Plofile', PlofileController::class);
 
 require __DIR__.'/auth.php';
