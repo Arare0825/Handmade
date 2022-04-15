@@ -9,8 +9,8 @@
   <div class="container px-5 py-24 mx-auto flex flex-col">
   <div class="border-b-2 border-gray-800">
     <div class="lg:w-4/6 mx-auto">
-      <div class=" mt-10">
-        <div class="sm:w-1/3 text-center sm:pr-8 sm:py-8">
+      <div class="text-center mt-10">
+        <div class="sm:w-1/3  sm:pr-8 sm:py-8">
           <div class="w-20 h-20 rounded-full inline-flex items-center justify-center bg-gray-200 text-gray-400">
             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10" viewBox="0 0 24 24">
               <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
@@ -27,15 +27,16 @@
         </div>
       </div>
 
-        <div class="text-center mt-12">
-            <div class="">
+        <div class="text-center mt-16">
+          <div class="mb-6">
             <a href="#" class="no-underline ...">出品中</a>
             </div>
-            <div class="">
+            <div class="mb-6">
             <a href="#" class="no-underline ...">購入済み</a>
-            </div>
-            <div class="">
+           </div>
+          <div class="mb-6">
             <a href="#" class="no-underline ...">お気に入り</a>
+            </div>
             </div>
           </div>
 

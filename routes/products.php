@@ -1,10 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PlofileController;
 use App\Http\Controllers\ProductsController;
-use App\Http\Controllers\SellController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -17,21 +14,7 @@ use App\Http\Controllers\SellController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/dashboard', function () {
-    return view('Plofile.myPage');
-})->middleware(['auth'])->name('dashboard');
-
-Route::resource('Plofile', PlofileController::class);
-
-
-Route::get('products',[ProductsController::class,'index'])->middleware('auth')->name('products.index');
-
-Route::resource('Sell', SellController::class)->middleware('auth');
-
-
+Route::resource('products',ProductsController::class)->middleware('auth');
 
 require __DIR__.'/auth.php';
