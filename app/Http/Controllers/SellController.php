@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Sell;
 use Illuminate\Http\Request;
+use App\Models\Products;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use InterventionImage;
+
 
 class SellController extends Controller
 {
@@ -14,7 +19,12 @@ class SellController extends Controller
      */
     public function index()
     {
-        return view('Sell.index');
+        // $products = Products::get();
+        $users = User::find(Auth()->id())->products;
+        // $auth = User::find(Auth()->id());  
+
+        // dd($users);
+        return view('Sell.index',compact('users'));
     }
 
     /**
@@ -24,7 +34,9 @@ class SellController extends Controller
      */
     public function create()
     {
-        return view('Sell.create');
+        $user = User::find(Auth()->id());
+// dd($user->id);
+        return view('Sell.create',compact('user'));
     }
 
     /**
@@ -35,7 +47,50 @@ class SellController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        // dd($request);
+        // function InputImage($a){
+        //     $fileName = $request->image1->getClientOriginalName();
+        //     $img = $request->image1->storeAs('',uniqid('',true).$fileName,'public');
+        //     }
+
+            // for($i=1; $i<=5; $i++):
+            //     dd($request->image[$i]);
+            //     $img[] = $request->image->storeAs('',uniqid('',true),'public');
+            // endfor;
+            $img1 = '';
+            $img2 = '';
+            $img3 = '';
+            $img4 = '';
+            $img5 = '';
+
+            if($request->image1){
+                $img1 = $request->image1->storeAs('',uniqid('',true),'public');
+            }if($request->image2){
+                $img2 = $request->image2->storeAs('',uniqid('',true),'public');
+            }if($request->image3){
+                $img3 = $request->image3->storeAs('',uniqid('',true),'public');
+            }if($request->image4){
+                $img4 = $request->image4->storeAs('',uniqid('',true),'public');
+            }if($request->image5){
+                $img5 = $request->image5->storeAs('',uniqid('',true),'public');
+            }
+
+        $product = Products::create([
+
+            'title' => $request->title,
+            'user_id' => $request->user_id,
+            'detail' => $request->detail,
+            'image1' => $img1,
+            'image2' => $img2,
+            'image3' => $img3,
+            'image4' => $img4,
+            'image5' => $img5,
+            'price' => $request->price,
+        ]);
+
+        
+        return redirect(route('Sell.index'));
     }
 
     /**
@@ -44,9 +99,13 @@ class SellController extends Controller
      * @param  \App\Models\Sell  $sell
      * @return \Illuminate\Http\Response
      */
-    public function show(Sell $sell)
+    public function show($sell)
     {
-        //
+        // dd($sell);
+        $product = Products::find($sell);
+        // dd($product);
+
+        return view('Sell.show',compact('product'));
     }
 
     /**
