@@ -5,18 +5,9 @@
         </h2>
     </x-slot>
 
-    @if ($errors->any())
-    <div class="alert alert-denger">
-      <ul>
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-    @endif
-
-    <form method="post" action="{{route('Sell.store')}}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('Sell.update',['Sell' => $product->id]) }}" enctype="multipart/form-data">
       @csrf
+      @method('put')
     <div class="md:col-span-1">
     </div>
     <div class="mt-5 md:mt-0 md:col-span-2">
@@ -27,14 +18,14 @@
               <div class="col-span-3 sm:col-span-2">
                 <label for="title" class="block text-sm font-medium text-gray-700"> 商品名 </label>
                 <div class="mt-1 flex rounded-md shadow-sm">
-                  <input required type="text" name="title" id="title" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" placeholder="商品名を入力してください">
+                  <input required type="text" value="{{ $product->title }}" name="title" id="title" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" placeholder="商品名を入力してください">
                 </div>
               </div>
             </div>
             <div>
               <label for="about" class="block text-sm font-medium text-gray-700"> 詳細 </label>
               <div class="mt-1">
-                <textarea required id="detail" name="detail" rows="3" class="resize rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="色、素材、注意点など"></textarea>
+                <textarea required id="detail" name="detail" rows="10" class="resize rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="色、素材、注意点など">{{ $product->detail }}</textarea>
               </div>
             </div>
 
@@ -83,23 +74,23 @@
         <input class="" type='file' name='image5' accept="image/png, image/jpeg, image/jpg"/>
     </label>
    </div>
-
+<?php var_dump($product->user_id) ; ?>
 
         <label for="price" class="block text-sm font-medium text-gray-700">価格</label>
         <div class="mt-1 relative rounded-md shadow-sm">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <span class="text-gray-500 sm:text-sm"> ￥ </span>
             </div>
-            <input required type="text" name="price" id="price" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="">
+            <input required type="text" value="{{ $product->price }}" name="price" id="price" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="">
             <div class="absolute inset-y-0 right-0 flex items-center">
             <label for="currency" class="sr-only">Currency</label>
             </div>
-            <input type="hidden" name="user_id" value="{{$user->id}}" >
+            <input type="hidden" name="user_id" value="{{$product->user_id}}" >
 
         </div>
         <div class="text-right">
         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                確認する
+                変更
         </button>        
         </div>
 

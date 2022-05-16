@@ -48,6 +48,13 @@ class SellController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+            'title'=>'required',
+            'detail'=>'required',
+            'image1'=>'required',
+            'price'=>'required',
+        ]);
+
         // dd($request);
         // function InputImage($a){
         //     $fileName = $request->image1->getClientOriginalName();
@@ -75,7 +82,7 @@ class SellController extends Controller
             }if($request->image5){
                 $img5 = $request->image5->storeAs('',uniqid('',true),'public');
             }
-
+            
         $product = Products::create([
 
             'title' => $request->title,
@@ -114,9 +121,12 @@ class SellController extends Controller
      * @param  \App\Models\Sell  $sell
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sell $sell)
+    public function edit($sell)
     {
-        //
+        // dd($sell);
+        $product = Products::find($sell);
+        // dd($product->user_id);
+        return view('sell.edit',compact('product'));
     }
 
     /**
@@ -126,9 +136,47 @@ class SellController extends Controller
      * @param  \App\Models\Sell  $sell
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sell $sell)
+    public function update(Request $request,$sell)
     {
-        //
+        // dd($request);
+        $img1 = '';
+        $img2 = '';
+        $img3 = '';
+        $img4 = '';
+        $img5 = '';
+
+        if($request->image1){
+            $img1 = $request->image1->storeAs('',uniqid('',true),'public');
+        }if($request->image2){
+            $img2 = $request->image2->storeAs('',uniqid('',true),'public');
+        }if($request->image3){
+            $img3 = $request->image3->storeAs('',uniqid('',true),'public');
+        }if($request->image4){
+            $img4 = $request->image4->storeAs('',uniqid('',true),'public');
+        }if($request->image5){
+            $img5 = $request->image5->storeAs('',uniqid('',true),'public');
+        }
+
+    $user = 18;
+
+    // $product = Products::find($request->id);
+    // $product_update = new Products();
+    $product = Products::findOrFail($sell);
+
+        $product->title = $request->title;
+        $product->user_id = $request->user_id;
+        $product->detail = $request->detail;
+        $product->image1 = $img1;
+        $product->image2 = $img2;
+        $product->image3 = $img3;
+        $product->image4 = $img4;
+        $product->image5 = $img5;
+        $product->price = $request->price;
+        $product->save();
+    
+
+    return redirect(route('Sell.index'));
+
     }
 
     /**
