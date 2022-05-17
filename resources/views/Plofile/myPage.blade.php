@@ -29,7 +29,7 @@
 
         <div class="text-center mt-16">
           <div class="mb-6">
-            <a href="#" class="no-underline ...">出品中</a>
+            <a href="<?php echo route("Sell.index"); ?>" class="no-underline ...">出品中</a>
             </div>
             <div class="mb-6">
             <a href="#" class="no-underline ...">購入済み</a>

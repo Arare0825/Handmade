@@ -65,11 +65,11 @@ class SellController extends Controller
             //     dd($request->image[$i]);
             //     $img[] = $request->image->storeAs('',uniqid('',true),'public');
             // endfor;
-            $img1 = '';
-            $img2 = '';
-            $img3 = '';
-            $img4 = '';
-            $img5 = '';
+            $img1 = null;
+            $img2 = null;
+            $img3 = null;
+            $img4 = null;
+            $img5 = null;
 
             if($request->image1){
                 $img1 = $request->image1->storeAs('',uniqid('',true),'public');
@@ -185,8 +185,14 @@ class SellController extends Controller
      * @param  \App\Models\Sell  $sell
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sell $sell)
+    public function destroy($sell)
     {
-        //
+
+        $product = Products::findOrFail($sell);
+
+        $product->delete();
+
+
+        return redirect()->route("Sell.index");
     }
 }
