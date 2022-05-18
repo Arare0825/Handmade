@@ -28,7 +28,9 @@ Route::get('/dashboard', function () {
 Route::resource('Plofile', PlofileController::class);
 
 
-Route::get('products',[ProductsController::class,'index'])->middleware('auth')->name('products.index');
+Route::get('/products',[ProductsController::class,'index'])->middleware('auth')->name('products.index');
+Route::get('/products/{id}',[ProductsController::class,'show'])->middleware('auth')->name('products.show');
+Route::get('/products//buy/{id}',[ProductsController::class,'buy'])->middleware('auth')->name('products.buy');
 
 Route::resource('Sell', SellController::class)->middleware('auth');
 
