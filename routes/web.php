@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlofileController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SellController;
+use App\Http\Controllers\CommentController;
 
 
 /*
@@ -34,6 +35,12 @@ Route::get('/products//buy/{id}',[ProductsController::class,'buy'])->middleware(
 
 Route::resource('Sell', SellController::class)->middleware('auth');
 
+// Route::resource('comment', CommentController::class)->only('index','store','show')->middleware('auth');
+
+// Route::get('/comment/{id}',[CommentController::class,'store'])->middleware('auth')->name('comment.store');
+Route::post('/comment',[CommentController::class,'store'])->middleware('auth')->name('comment.store');
+
+// Route::get('/comment//buy/{id}',[CommentController::class,'buy'])->middleware('auth')->name('comment.buy');
 
 
 require __DIR__.'/auth.php';
