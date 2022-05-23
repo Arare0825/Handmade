@@ -23,11 +23,8 @@ class ProductsController extends Controller
 
         $product = Products::find($id);
         $comments = Products::find($id)->comments;
-        // $comment_user = 
+// dd($product);
 
-        // $comment = Comment::find(1);
-        // return dd($comment->products);
-        // dd($comments);
 
         return view('products.show',compact('product','comments'));
     }

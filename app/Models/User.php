@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Products;
+use App\Models\Comment;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
@@ -47,6 +48,11 @@ class User extends Authenticatable
     public function products()
     {
         return $this->hasMany(Products::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     public function UserProducts()
