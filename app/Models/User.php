@@ -9,7 +9,9 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Products;
 use App\Models\Comment;
+use App\Models\Mypage;
 use Illuminate\Database\Eloquent\Model;
+
 
 class User extends Authenticatable
 {
@@ -61,5 +63,10 @@ class User extends Authenticatable
         ->find(Auth()->id())
         ->Products()
         ->get();
+    }
+
+    public function Mypage(){
+
+        return $this->hasOne(Mypage::class);
     }
 }

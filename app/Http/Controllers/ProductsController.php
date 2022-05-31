@@ -33,4 +33,9 @@ class ProductsController extends Controller
 
         return view('products.buy');
     }
+
+    public function redirect(){
+
+        return view('products.redirect');
+    }
 }

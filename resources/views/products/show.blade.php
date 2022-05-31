@@ -39,6 +39,8 @@
       </div>
 
       <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+      <form action="{{ route('buy.checkout')}}" method="post">
+        @csrf
         <a href="" class="text-sm title-font text-gray-500 tracking-widest">出品者のリンクを貼る</a>
         <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{ $product->title }} </h1>
         <div class="flex mb-4">
@@ -56,7 +58,7 @@
         </div>
         <div class="flex">
           <span class="title-font font-medium text-2xl text-gray-900">￥{{ number_format($product->price) }}</span>
-          <a href="{{ route('products.buy',['id'=>"$product->id"]) }}" class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-gray-600 rounded">購入する</a>
+          <button type="submit" class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-gray-600 rounded">購入する</button>
             <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
             </svg>
         </div>
@@ -65,6 +67,10 @@
   </div>
 
   <!-- </section> -->
+      <input type="hidden" name="title" value="{{ $product->title }}">
+      <input type="hidden" name="detail" value="{{ $product->detail }}">
+      <input type="hidden" name="price" value="{{ $product->price }}">
+    </form>
   <div>
 
 <!-- <section class="rounded-b-lg  mt-4 "> -->
