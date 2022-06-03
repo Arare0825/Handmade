@@ -1,5 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
+    <script src="https://kit.fontawesome.com/3d2bf1d45e.js" crossorigin="anonymous"></script>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             商品情報
         </h2>
@@ -46,6 +47,20 @@
         <div class="flex mb-4">
         </div>
         <p style="white-space:pre-wrap;" class="leading-relaxed">{{ $product->detail }} </p>
+
+        @if(! $haveLike == true)
+        <div class="flex flex-row-reverse">
+          <a class="" href="{{ route('like',['id'=> $product->id])  }}"><i class="fa-3x fa-regular fa-star mr-2"></i>
+          <p>気になる</p>
+          </a>
+          </div>
+          @else
+          <div class="flex flex-row-reverse">
+          <a class="" href="{{ route('dislike',['id'=> $product->id])  }}"><i class="fa-3x fa-solid fa-star mr-2" style="color: #F6E05E;"></i>
+          <p>気になる</p>
+          </a>
+          </div>
+            @endif
         <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
           <div class="flex ml-6 items-center">
             <div class="relative">
@@ -63,7 +78,9 @@
             </svg>
         </div>
       </div>
+
     </div>
+
   </div>
 
   <!-- </section> -->

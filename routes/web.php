@@ -6,6 +6,8 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\BuyController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\FavoriteController;
 
 
 /*
@@ -38,6 +40,12 @@ Route::get('/products',[ProductsController::class,'index'])->middleware('auth')-
 Route::get('/products/{id}',[ProductsController::class,'show'])->middleware('auth')->name('products.show');
 Route::get('/products//buy/{id}',[ProductsController::class,'buy'])->middleware('auth')->name('products.buy');
 Route::get('/products/redirect',[ProductsController::class,'redirect'])->middleware('auth')->name('products.redirect');
+
+Route::get('/like/{id}',[LikeController::class,'like'])->name('like');
+Route::get('/dislike/{id}',[LikeController::class,'dislike'])->name('dislike');
+
+Route::get('/favorite',[FavoriteController::class,'index'])->middleware('auth')->name('favorite.index');
+
 
 
 Route::resource('Sell', SellController::class)->middleware('auth');

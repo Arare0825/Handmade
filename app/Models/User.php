@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Products;
 use App\Models\Comment;
 use App\Models\Mypage;
+use App\Models\Like;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -47,6 +48,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function likeItems(){
+
+        return $this->belongsToMany(Like::class,'products_id');
+    }
+
+
     public function products()
     {
         return $this->hasMany(Products::class);
@@ -67,6 +74,12 @@ class User extends Authenticatable
 
     public function Mypage(){
 
-        return $this->hasOne(Mypage::class);
+        return $this->belongsTo(Mypage::class);
     }
+
+    public function like(){
+        return $this->hasMany(Like::class);
+    }
+
+
 }

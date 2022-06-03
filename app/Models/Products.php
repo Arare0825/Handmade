@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\Like;
 
 class Products extends Model
 {
@@ -17,11 +18,16 @@ class Products extends Model
 
     public function User()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function Comments(){
         
         return $this->hasMany(Comment::class);
     }
+    public function Like(){
+        return $this->hasMany(Like::class);
+    }
+
+
 }

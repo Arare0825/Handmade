@@ -7,6 +7,7 @@ use App\Models\Products;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Comment;
+use App\Models\Like;
 
 
 class ProductsController extends Controller
@@ -20,13 +21,25 @@ class ProductsController extends Controller
     }
 
     public function show($id){
-
+        // dd($id);
         $product = Products::find($id);
         $comments = Products::find($id)->comments;
+        $likes = Products::find($id)->like;
+
+        $haveLike = false;
+        foreach ($likes as $like){
+            if($like->user_id == auth()->id()){
+                $haveLike = true;
+                break;
+            }else{
+                $haveLike = false;
+            }
+        }
+
 // dd($product);
 
 
-        return view('products.show',compact('product','comments'));
+        return view('products.show',compact('product','comments','haveLike'));
     }
 
     public function buy($id){
@@ -37,5 +50,9 @@ class ProductsController extends Controller
     public function redirect(){
 
         return view('products.redirect');
+    }
+
+    public function like(){
+        return $this->hasMany(Like::class);
     }
 }
