@@ -74,7 +74,7 @@ class User extends Authenticatable
 
     public function Mypage(){
 
-        return $this->belongsTo(Mypage::class);
+        return $this->hasOne(Mypage::class);
     }
 
     public function like(){

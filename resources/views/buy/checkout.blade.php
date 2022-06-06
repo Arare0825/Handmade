@@ -1,6 +1,7 @@
     <p>決済ページへリダイレクトします。</p>
+    <script src="https://js.stripe.com/v3/"></script>
 <script>
-    const publicKey = '{{ $publicKey }}'
+    const publicKey = '{{ $publickey }}'
     const stripe = Stripe(publickey)
 
     window.onload = function(){

@@ -64,12 +64,12 @@
     </div>
   </div>
   <div class="mx-auto">
-    <form method="post" action="{{ route('Sell.destroy',['Sell'=>$product->id]) }}">
+    <form method="post" id="delete_{{$product->id}}" action="{{ route('Sell.destroy',['Sell'=>$product->id]) }}">
       @csrf
       @method('delete')
-  <button type="submit" class="bg-red-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+  <a type="#" data-id="{{ $product->id }}" button onclick="deletePost(this)" class="cursor-pointer bg-red-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
   削除する
-          </button>
+          </a>
           </form>
   </div>
 
@@ -77,5 +77,13 @@
 
 
     </x-app-layout>
+    <script>
+      function deletePost(e){
+        'use strict';
+        if(confirm('本当に削除してもいいですか？')){
+          document.getElementById('delete_' + e.dataset.id).submit();
+        }
+      }
+    </script>
     <script src="{{ mix('js/swiper.js') }}"></script>
 

@@ -14,7 +14,7 @@ class FavoriteController extends Controller
 {
     public function index(){
         
-        $user = user::find(auth()->id());
+        $user = User::find(auth()->id());
         $like = Auth::user()->like;
         // dd($like);
         $likes = Like::where('user_id',auth()->id())->with('products')->get();

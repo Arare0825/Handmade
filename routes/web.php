@@ -59,6 +59,7 @@ Route::post('/comment',[CommentController::class,'store'])->middleware('auth')->
 Route::get('buy/index',[BuyController::class,'index'])->name('buy.index')->middleware('auth');
 Route::post('buy/checkout',[BuyController::class,'checkout'])->name('buy.checkout')->middleware('auth');
 Route::post('buy/complete',[BuyController::class,'complete'])->name('buy.complete')->middleware('auth');
+Route::get('success',[BuyController::class,'success'])->name('buy.success')->middleware('auth');
     // Route::get('checkout',[BuyController::class,'checkout'])->name('buy.checkout');
 
 

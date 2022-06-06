@@ -67,7 +67,7 @@ class PlofileController extends Controller
     {
         $user = User::find(auth()->id())->Mypage;
         // dd($user);
-        if(! User::find(auth()->id())->Mypage){
+        if(! $user){
 
             if($request->image){
                 $type = $request->image->getClientOriginalExtension();
