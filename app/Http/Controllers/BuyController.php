@@ -61,11 +61,4 @@ class BuyController extends Controller
 
     }
 
-    public function success(){
-
-        $product = Products::where('id',Auth::id());
-
-
-        return view('buy.complete');
-    }
 }

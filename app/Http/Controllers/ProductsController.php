@@ -8,16 +8,47 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Comment;
 use App\Models\Like;
+use App\Models\SecondaryCategory;
+use App\Models\PrimaryCategory;
 
 
 class ProductsController extends Controller
 {
-    public function index(){
 
-        $products = DB::select('select * from products');
-        // dd($products);
 
-        return view('products.index',compact('products'));
+    public function index(Request $request){
+
+        
+        $categories = SecondaryCategory::all();
+        $Selectcategory = PrimaryCategory::with('secondary')->get();
+        // $query = Products::query();
+
+
+        if($request->category == '0' || $request->category == null){
+            $products = DB::select('select * from products');
+        }else{
+            $products = DB::select("select * from products where secondary_category_id = $request->category");
+        }
+
+        $category = [];
+        foreach($categories as $c){
+            $category[] = $c->name;
+        }
+
+        if($request->word){
+            $spaceConversion = mb_convert_kana($request->word,'s');
+
+            $wordArraySearched = preg_split('/[\s,]+/',$spaceConversion,-1,PREG_SPLIT_NO_EMPTY);
+
+            foreach($wordArraySearched as $value){
+                $query = Products::where('secondary_category_id','=',"$request->category")->where('title','like','%'.$value.'%');
+            }
+            $products = $query->paginate(20);
+        }
+        // dd($query);
+
+
+        return view('products.index',compact('products','category','Selectcategory'));
     }
 
     public function show($id){
@@ -25,6 +56,7 @@ class ProductsController extends Controller
         $product = Products::find($id);
         $comments = Products::find($id)->comments;
         $likes = Products::find($id)->like;
+        $count = count($likes);
 
         $haveLike = false;
         foreach ($likes as $like){
@@ -35,11 +67,7 @@ class ProductsController extends Controller
                 $haveLike = false;
             }
         }
-
-// dd($product);
-
-
-        return view('products.show',compact('product','comments','haveLike'));
+        return view('products.show',compact('product','comments','haveLike','count'));
     }
 
     public function buy($id){
@@ -54,5 +82,9 @@ class ProductsController extends Controller
 
     public function like(){
         return $this->hasMany(Like::class);
+    }
+
+    public function secondary(){
+        return $this->hasOne(SecondaryCategory::class);
     }
 }

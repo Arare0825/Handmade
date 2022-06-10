@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('title',125);
             $table->text('detail');
             $table->integer('price');
+            $table->foreignId('secondary_category_id');
             $table->string('image1')->nullable();
             $table->string('image2')->nullable();
             $table->string('image3')->nullable();

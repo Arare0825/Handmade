@@ -54,7 +54,14 @@ class PlofileController extends Controller
      */
     public function setting()
     {
-        return view('plofile.setting');
+
+        if(User::find(auth()->id())->Mypage){
+            $user = User::find(auth()->id())->Mypage;
+        }else{
+            $user = null;
+        }
+
+        return view('plofile.setting',compact('user'));
     }
 
     /**

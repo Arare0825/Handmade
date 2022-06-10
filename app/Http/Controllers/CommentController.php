@@ -6,6 +6,8 @@ use App\Models\Comment;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Mypage;
 
 class CommentController extends Controller
 {
@@ -27,16 +29,20 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         // $comment_user = Auth()->id();
+
+        $user = User::find(auth()->id())->Mypage;
+        // dd($user->name);
+
         // dd($request);
         $comment = Comment::create([
             'comment' => $request->comment,
             'products_id' => $request->productId,
-            'name' => $request->name,
+            'name' => $user->name,
             'users_id' => $request->userId,
         ]);
         // dd($comment);
 
-        return redirect()->route('products.index');
+        return back();
     }
 
     /**

@@ -48,15 +48,16 @@
         </div>
         <p style="white-space:pre-wrap;" class="leading-relaxed">{{ $product->detail }} </p>
 
-        @if(! $haveLike == true)
+        @if( $haveLike == 1)
         <div class="flex flex-row-reverse">
-          <a class="" href="{{ route('like',['id'=> $product->id])  }}"><i class="fa-3x fa-regular fa-star mr-2"></i>
+        <p>{{ $count }}</p>
+          <a class="" href="{{ route('dislike',['id'=> $product->id])  }}"><i class="fa-3x fa-solid fa-star mr-2" style="color: #F6E05E;"></i>
           <p>気になる</p>
           </a>
           </div>
           @else
           <div class="flex flex-row-reverse">
-          <a class="" href="{{ route('dislike',['id'=> $product->id])  }}"><i class="fa-3x fa-solid fa-star mr-2" style="color: #F6E05E;"></i>
+          <a class="" href="{{ route('like',['id'=> $product->id])  }}"><i class="fa-3x fa-regular fa-star mr-2"></i>
           <p>気になる</p>
           </a>
           </div>
@@ -90,7 +91,6 @@
       <input type="hidden" name="price" value="{{ $product->price }}">
 </form>
     </form>
-  <div>
 
 <!-- <section class="rounded-b-lg  mt-4 "> -->
   
@@ -98,8 +98,12 @@
 
 <form action="{{ route('comment.store',['id'=> "$product->user_id"]) }}" accept-charset="UTF-8" method="post">
   @csrf
-<textarea name="comment" class="w-full shadow-inner p-4 border-0 mb-4 rounded-lg focus:shadow-outline text-2xl" placeholder="Ask questions here." cols="6" rows="6" id="comment_content" spellcheck="false"></textarea>
-<button type="submit" class="font-bold py-2 px-4 w-full bg-purple-400 text-lg text-white shadow-md rounded-lg ">Comment </button>
+  <div>
+
+<textarea name="comment" class="w-full shadow-inner p-4 border-0 mb-4 rounded-lg focus:shadow-outline text-2xl" placeholder="質問内容を記載してください" require></textarea>
+
+
+<button type="submit" class="font-bold py-2 px-4 w-full bg-purple-400 text-lg text-white shadow-md rounded-lg ">質問する </button>
 <input type="hidden" name="productId" value="{{ $product->id }}">
 <input type="hidden" name="userId" value="{{ auth()->id() }}">
 <input type="hidden" name="name" value="{{ auth()->user()->name }}">
@@ -111,7 +115,7 @@
 <div class="flex flex-row justify-center mr-2">
 <img alt="avatar" width="48" height="48" class="rounded-full w-10 h-10 mr-4 shadow-lg mb-4" src="https://cdn1.iconfinder.com/data/icons/technology-devices-2/100/Profile-512.png">
 <h3 class="text-purple-600 font-semibold text-lg text-center md:text-left ">
-  {{ $comment->name }}
+  {{ $comment->name }}さん
 </h3>
 </div>
 
@@ -122,9 +126,9 @@
   </div>
   @endforeach
 
-</section>
 
 </div>
+</section>
 
     </x-app-layout>
     <script src="{{ mix('js/swiper.js') }}"></script>

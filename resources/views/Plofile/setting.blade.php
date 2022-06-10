@@ -19,9 +19,21 @@
             </svg>
           </div>
           <div class="flex flex-col items-center text-center justify-center">
-            <h2 class="font-medium title-font mt-4 text-gray-900 text-lg">名前が入る</h2>
+            <h2 class="font-medium title-font mt-4 text-gray-900 text-lg">
+              @if($user->name)
+              {{ $user->name }}
+              @else
+              {{ 名無しさん }}
+              @endif
+            </h2>
             <div class="w-12 h-1 bg-indigo-500 rounded mt-2 mb-4"></div>
-            <p class="text-base">コメントが入ります</p>
+            <p class="text-base">
+              @if($user->message)
+              {{ $user->message }}
+              @else
+              {{ メッセージはありません }}
+              @endif
+             </p>
           </div>
         </div>
         <!-- </div> -->

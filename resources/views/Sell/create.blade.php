@@ -38,6 +38,17 @@
               </div>
             </div>
 
+            <select name="category" value="カテゴリー">
+              @foreach($categories as $category)
+              <optgroup label="{{ $category->name }}">
+                @foreach($category->secondary as $secondary)
+                <option value="{{ $secondary->id }}">
+                  {{ $secondary->name }}
+                </option>
+              @endforeach
+              @endforeach
+            </select>
+
         <div class="flex mt-6 my-3 items-center justify-center bg-grey-lighter">
        <label class="flex mx-3 flex-col items-center px-8 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
         <svg class="mt-2 w-4 h-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

@@ -6,6 +6,8 @@ use App\Models\Sell;
 use Illuminate\Http\Request;
 use App\Models\Products;
 use App\Models\User;
+use App\Models\PrimaryCategory;
+use App\Models\SecondaryCategory;
 use Illuminate\Support\Facades\DB;
 use InterventionImage;
 
@@ -35,8 +37,9 @@ class SellController extends Controller
     public function create()
     {
         $user = User::find(Auth()->id());
+        $categories = PrimaryCategory::with('secondary')->get();
 // dd($user->id);
-        return view('Sell.create',compact('user'));
+        return view('Sell.create',compact('user','categories'));
     }
 
     /**
@@ -47,12 +50,14 @@ class SellController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
 
         $request->validate([
             'title'=>'required',
             'detail'=>'required',
             'image1'=>'required',
             'price'=>'required',
+            'category'=>'required',
         ]);
 
         // dd($request);
@@ -87,6 +92,7 @@ class SellController extends Controller
 
             'title' => $request->title,
             'user_id' => $request->user_id,
+            'secondary_category_id'=>$request->category,
             'detail' => $request->detail,
             'image1' => $img1,
             'image2' => $img2,
@@ -125,8 +131,10 @@ class SellController extends Controller
     {
         // dd($sell);
         $product = Products::find($sell);
+        $categories = PrimaryCategory::with('secondary')->get();
+
         // dd($product->user_id);
-        return view('sell.edit',compact('product'));
+        return view('sell.edit',compact('product','categories'));
     }
 
     /**
@@ -165,6 +173,7 @@ class SellController extends Controller
 
         $product->title = $request->title;
         $product->user_id = $request->user_id;
+        $product->secondary_category_id = $request->category;
         $product->detail = $request->detail;
         $product->image1 = $img1;
         $product->image2 = $img2;
