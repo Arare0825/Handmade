@@ -48,7 +48,7 @@
             <a href="<?php echo route("Sell.index"); ?>" class="no-underline ...">出品中</a>
             </div>
             <div class="mb-6">
-            <a href="#" class="no-underline ...">購入済み</a>
+            <a href="{{ route('bought.index') }}" class="no-underline ...">購入済み</a>
            </div>
           <div class="mb-6">
             <a href="{{ route('favorite.index') }}" class="no-underline ...">お気に入り</a>

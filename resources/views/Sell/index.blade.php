@@ -19,7 +19,6 @@
           <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="<?php echo asset("storage/$user->image1") ?>">
         </a>
         <div class="mt-4">
-          <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
           <h2 class="text-gray-900 title-font text-lg font-medium">{{ $user->title }}</h2>
           <p class="mt-1">￥{{ $user->price }}</p>
         </div>

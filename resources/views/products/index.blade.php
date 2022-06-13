@@ -5,6 +5,7 @@
             購入
         </h2>
     </x-slot>
+    <section class="text-gray-600 body-font">
 
 <div class="bg-white">
   <div class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -22,7 +23,7 @@
               @endforeach
               @endforeach
             </select>
-            <input type="text" name="word" placeholder="検索" value="{{ old('word') }}">
+            <input type="text" name="word" placeholder="検索" value="@if(isset($word)) {{ $word  }} @endif">
             <button type="submit"><i class="fa-2x fa-solid fa-magnifying-glass"></i></button>
             </form>
             </div>
@@ -48,5 +49,6 @@
   </div>
 
 </div>
+</section>
 
 </x-app-layout>

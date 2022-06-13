@@ -11,6 +11,7 @@ use App\Models\Products;
 use App\Models\Comment;
 use App\Models\Mypage;
 use App\Models\Like;
+use App\Models\soldOut;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -81,5 +82,7 @@ class User extends Authenticatable
         return $this->hasMany(Like::class);
     }
 
-
+public function SoldOut(){
+    return $this->hasMany(SoldOut::class);
+}
 }

@@ -51,6 +51,7 @@ class SellController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        $user = USer::find(auth()->id());
 
         $request->validate([
             'title'=>'required',
@@ -147,11 +148,11 @@ class SellController extends Controller
     public function update(Request $request,$sell)
     {
         // dd($request);
-        $img1 = '';
-        $img2 = '';
-        $img3 = '';
-        $img4 = '';
-        $img5 = '';
+        $img1 = null;
+        $img2 = null;
+        $img3 = null;
+        $img4 = null;
+        $img5 = null;
 
         if($request->image1){
             $img1 = $request->image1->storeAs('',uniqid('',true),'public');
@@ -172,6 +173,7 @@ class SellController extends Controller
     $product = Products::findOrFail($sell);
 
         $product->title = $request->title;
+        $product->user_id = $request->user_id;
         $product->user_id = $request->user_id;
         $product->secondary_category_id = $request->category;
         $product->detail = $request->detail;

@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateCommentRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Mypage;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -38,7 +39,7 @@ class CommentController extends Controller
             'comment' => $request->comment,
             'products_id' => $request->productId,
             'name' => $user->name,
-            'users_id' => $request->userId,
+            'users_id' => Auth::id(),
         ]);
         // dd($comment);
 

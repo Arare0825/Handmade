@@ -29,6 +29,18 @@
               </div>
             </div>
 
+            <select name="category" value="カテゴリー">
+              @foreach($categories as $category)
+              <optgroup label="{{ $category->name }}">
+                @foreach($category->secondary as $secondary)
+                <option value="{{ $secondary->id }}">
+                  {{ $secondary->name }}
+                </option>
+              @endforeach
+              @endforeach
+            </select>
+
+
         <div class="flex mt-6 my-3 items-center justify-center bg-grey-lighter">
        <label class="flex mx-3 flex-col items-center px-8 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
         <svg class="mt-2 w-4 h-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -74,7 +86,6 @@
         <input class="" type='file' name='image5' accept="image/png, image/jpeg, image/jpg"/>
     </label>
    </div>
-<?php var_dump($product->user_id) ; ?>
 
         <label for="price" class="block text-sm font-medium text-gray-700">価格</label>
         <div class="mt-1 relative rounded-md shadow-sm">

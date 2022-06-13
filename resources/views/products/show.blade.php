@@ -14,19 +14,19 @@
           <div class="swiper-slide"><img src="{{ asset("storage/$product->image1") }}"></div>
           <?php endif ;  ?>
 
-          <?php if(isset($product->image2)): ?>
+          <?php if(!$product->image2 == null): ?>
           <div class="swiper-slide"><img src="{{ asset("storage/$product->image2") }}"></div>
           <?php endif ; ?>
 
-          <?php if(isset($product->image3)): ?>
+          <?php if(!$product->image3 == null): ?>
           <div class="swiper-slide"><img src="{{ asset("storage/$product->image3") }}"></div>
           <?php endif ; ?>
 
-          <?php if(isset($product->image4)): ?>
+          <?php if(!$product->image4 == null): ?>
           <div class="swiper-slide"><img src="{{ asset("storage/$product->image4") }}"></div>
           <?php endif ; ?>
 
-          <?php if(isset($product->image5)): ?>
+          <?php if(!$product->image5 == null): ?>
           <div class="swiper-slide"><img src="{{ asset("storage/$product->image5") }}"></div>
          <?php endif ; ?>
 
@@ -42,7 +42,6 @@
       <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
       <form action="{{ route('buy.checkout')}}" method="post">
         @csrf
-        <a href="" class="text-sm title-font text-gray-500 tracking-widest">出品者のリンクを貼る</a>
         <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{ $product->title }} </h1>
         <div class="flex mb-4">
         </div>
@@ -95,15 +94,15 @@
 <!-- <section class="rounded-b-lg  mt-4 "> -->
   
 
+  <div class="font-semibold">
 
 <form action="{{ route('comment.store',['id'=> "$product->user_id"]) }}" accept-charset="UTF-8" method="post">
   @csrf
-  <div>
 
 <textarea name="comment" class="w-full shadow-inner p-4 border-0 mb-4 rounded-lg focus:shadow-outline text-2xl" placeholder="質問内容を記載してください" require></textarea>
 
 
-<button type="submit" class="font-bold py-2 px-4 w-full bg-purple-400 text-lg text-white shadow-md rounded-lg ">質問する </button>
+<button type="submit" class="font-medium py-2 px-4 w-full bg-gray-700 text-lg text-white shadow-md rounded-lg ">質問する </button>
 <input type="hidden" name="productId" value="{{ $product->id }}">
 <input type="hidden" name="userId" value="{{ auth()->id() }}">
 <input type="hidden" name="name" value="{{ auth()->user()->name }}">
@@ -113,14 +112,19 @@
     @foreach ($comments as $comment)
 <div class="bg-white rounded-lg p-3  flex flex-col justify-center items-center md:items-start shadow-lg mb-4">
 <div class="flex flex-row justify-center mr-2">
-<img alt="avatar" width="48" height="48" class="rounded-full w-10 h-10 mr-4 shadow-lg mb-4" src="https://cdn1.iconfinder.com/data/icons/technology-devices-2/100/Profile-512.png">
-<h3 class="text-purple-600 font-semibold text-lg text-center md:text-left ">
+  @if($comment->users_id == $product->user_id)
+<h3 class="text-green font-black text-lg text-center md:text-left ml-2">
+  {{ $comment->name }}さん(出品者)
+</h3>
+@else
+<h3 class="text-black font-black text-lg text-center md:text-left ml-2">
   {{ $comment->name }}さん
 </h3>
+@endif
 </div>
 
 
-<p style="width: 90%" class="text-gray-600 text-lg text-center md:text-left ">{{ $comment->comment }}</p>
+<p style="width: 90%" class="text-gray-500 text-lg font-medium text-center md:text-left mt-2 ml-2">{{ $comment->comment }}</p>
 
 </div>
   </div>

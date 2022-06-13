@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\soldOut;
 use Auth;
 use StripeCharge;
 use StripeStripe;
@@ -44,21 +45,51 @@ class BuyController extends Controller
                       'description' => $description,
                     ]],            
                 'mode' => 'payment',
-                'success_url' => route('products.index'),
-                'cancel_url' => route('products.index'),
+                'success_url' => route('buy.complete',compact('id')),
+                'cancel_url' => route('products.show',['id'=>$request->id]),
                 ]);
 
-                $product = Products::where('id',$id)->delete();
-    
+
+
             }
             catch(Exception $e)
             {
                 return $e->getMessage();
             }
 
-            return redirect($session->url, 303);
             
+            return redirect($session->url,303);
+
+
 
     }
+
+    public function complete($id){
+
+            $products = Products::where('id',$id)->get();
+            $user = User::find(Auth()->id());
+            // dd($user->id);
+            foreach($products as $product){
+                // dd($product);
+            }
+            $soldOut = soldOut::create([
+                    'title' => $product->title,
+                    'user_id' => $product->user_id,
+                    'bought_user' => $user->id,
+                    'secondary_category_id'=>$product->secondary_category_id,
+                    'detail' => $product->detail,
+                    'image1' => $product->image1,
+                    'image2' => $product->image2,
+                    'image3' => $product->image3,
+                    'image4' => $product->image4,
+                    'image5' => $product->image5,
+                    'price' => $product->price,
+                ]);
+
+             $products = Products::where('id',$id)->delete();
+             
+             return redirect(route('bought.index'));
+
+                    }
 
 }

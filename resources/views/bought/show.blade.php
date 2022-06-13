@@ -1,5 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
+    <script src="https://kit.fontawesome.com/3d2bf1d45e.js" crossorigin="anonymous"></script>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             商品情報
         </h2>
@@ -39,11 +40,12 @@
       </div>
 
       <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-        <a href="" class="text-sm title-font text-gray-500 tracking-widest"></a>
+        <a href="" class="text-sm title-font text-gray-500 tracking-widest">出品者のリンクを貼る</a>
         <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{ $product->title }} </h1>
         <div class="flex mb-4">
         </div>
         <p style="white-space:pre-wrap;" class="leading-relaxed">{{ $product->detail }} </p>
+
         <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
           <div class="flex ml-6 items-center">
             <div class="relative">
@@ -54,36 +56,24 @@
             </div>
           </div>
         </div>
-        <div class="flex">
-          <span class="title-font font-medium text-2xl text-gray-900">￥{{ number_format($product->price) }}</span>
-          <a href="{{ route('Sell.edit',['Sell'=>$product->id]) }}" class="flex ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-gray-600 rounded">編集する</a>
+        <div class="flex mx-auto">
+          <h4 class="title-font font-medium text-2xl text-gray-900">￥{{ number_format($product->price) }}</h4>
+          <button type="block" class="flex ml-auto text-white bg-gray-700 border-0 py-2 px-6 opacity-50 cursor-not-allowed rounded">購入済み</button>
+          <p class="ml-4 mt-2">{{ date('Y/m/d',strtotime($product->created_at)) }}</p>
             <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
             </svg>
         </div>
       </div>
+
     </div>
-  </div>
-  <div class="flex justify-center">
-    <form method="post" id="delete_{{$product->id}}" action="{{ route('Sell.destroy',['Sell'=>$product->id]) }}">
-      @csrf
-      @method('delete')
-  <a type="#" data-id="{{ $product->id }}" button onclick="deletePost(this)" class="cursor-pointer bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-  削除する
-          </a>
-          </form>
+
   </div>
 
-  </section>
+  <!-- </section> -->
 
+</div>
+</section>
 
     </x-app-layout>
-    <script>
-      function deletePost(e){
-        'use strict';
-        if(confirm('本当に削除してもいいですか？')){
-          document.getElementById('delete_' + e.dataset.id).submit();
-        }
-      }
-    </script>
     <script src="{{ mix('js/swiper.js') }}"></script>
 
